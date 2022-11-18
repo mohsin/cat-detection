@@ -1,5 +1,7 @@
 import io
 import os
+import signal
+import subprocess
 import time
 import boto3
 import datetime
@@ -36,7 +38,12 @@ class CaptureHandler:
         cat_label = [label for label in response['Labels'] if label.get('Name') == 'Cat'] 
         if (cat_label):
             if (cat_label[0]['Confidence']) > 75.0:
-                print('YESSSS!! Cat found!')
+                proc = subprocess.Popen(['aplay', '-D', 'bluealsa', 'dog.wav'])
+                try:
+                    outs, errs = proc.communicate(timeout=30)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    outs, errs = proc.communicate()
 
         # Raise the API call count
         current_count += 1
