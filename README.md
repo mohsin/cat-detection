@@ -16,6 +16,18 @@ This code makes a dog barking sound whenever a cat comes into the view of the pi
 * Programming skill to set this up.
 * There should be a file `apicount.txt` where the main.py is with a single number 0 as it's contents.
 
+### Running ###
+1. Setup Raspberry Pi with camera (legacy mode enabled until picamera2 is stable).
+2. Pull the required libraries boto3, pycamera, etc. using pip install (will all requirements.txt to this repo later).
+3. Setup AWS console with it's keys so that boto3 can access them while running script.
+4. Ensure that aplay works fine while running dog.wav using bluealsa.
+
+I usually SSH into my Pi to run modules, so the script dies if I SSH out as the terminal no longer exists. So instead of running `python main.py` (for development), I run the script like this in production:
+```
+python /home/mohsin/cat-detector/main.py < /dev/null > output.txt 2>&1 &
+```
+In order to terminate the process when run like this, `pkill python` or `ps aux | grep python`, then `kill <id-of-process>`.
+
 ### Limitations ###
 * I'm using system call to aplay to stream the sound using my wireless bluetooth speaker. Ideally, I'd prefer it done natively but I had issues setting up bluealsa and pulseaudio to run as daemons so eventually gave up. This causes a delay, in addition to some other delays in the project.
 * This uses Amazon Rekognition to detect the cat than an in-built trained model so WiFi and an Amazon account is needed. (I used their free tier offering so I'm counting the API calls on this project).
