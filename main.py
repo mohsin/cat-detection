@@ -1,9 +1,11 @@
+import io
 import os
 import time
 import datetime
 import picamera
 import picamera.array
 import numpy as np
+from PIL import Image
 
 class CaptureHandler:
     def __init__(self, camera, stream, post_capture_callback=None):
@@ -19,8 +21,22 @@ class CaptureHandler:
         if not self.working:
             self.detected = True
 
+    def play_sound_if_cat(self):
+        stream = io.BytesIO()
+        with open ('apicount.txt', 'r') as f:
+            current_count = int(f.read().strip())
+            print("Current API count: " + str(current_count))
+        self.camera.capture(stream, format='jpeg', use_video_port=True)
+        stream.seek(0)
+        possible_cat = Image.open(stream)
+        current_count += 1
+
+        with open('apicount.txt', 'w') as f:
+            f.write(str(current_count) + "\n")
+
     def tick(self):
         if self.detected:
+            count = 0
             self.working = True
             self.detected = False
             print('Recording started')
@@ -31,7 +47,11 @@ class CaptureHandler:
 
             camera.split_recording(path + datetime.datetime.now().strftime("%H%M") + '-' + str(self.i) + '-' + 'motion.h264')
             while time.time() - self.last_detected < 5 or self.detected:
+                if (count == 0 or count % 10 == 0):
+                    self.play_sound_if_cat()
+                count += 1
                 camera.wait_recording(1)
+
             print('Recording complete')
 
             camera.split_recording(stream)
