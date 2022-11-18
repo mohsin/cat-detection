@@ -1,6 +1,7 @@
 import io
 import os
 import time
+import boto3
 import datetime
 import picamera
 import picamera.array
@@ -29,8 +30,16 @@ class CaptureHandler:
         self.camera.capture(stream, format='jpeg', use_video_port=True)
         stream.seek(0)
         possible_cat = Image.open(stream)
-        current_count += 1
 
+        client = boto3.client('rekognition')
+        response = client.detect_labels(Image={'Bytes': stream.getvalue()})
+        cat_label = [label for label in response['Labels'] if label.get('Name') == 'Cat'] 
+        if (cat_label):
+            if (cat_label[0]['Confidence']) > 75.0:
+                print('YESSSS!! Cat found!')
+
+        # Raise the API call count
+        current_count += 1
         with open('apicount.txt', 'w') as f:
             f.write(str(current_count) + "\n")
 
