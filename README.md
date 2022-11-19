@@ -3,12 +3,19 @@
 ### Introduction ###
 I recently started facing an issue--a wild cat was pooping outside my apartment on my doormat. I figured it would be a good time to put the Raspberry Pi to use to scare the cat away.
 
-### Demo ###
+## Setup ##
+I have added a setup mode for convience so you can setup and align the camera to the field of view properly before running it properly. You can enter setup mode using:
 
-[![Demonstration of the project](https://img.youtube.com/vi/0a0buZs7Ig8/0.jpg)](https://www.youtube.com/watch?v=0a0buZs7Ig8)
+```
+python main.py --setup
+```
+[![Demonstration of the project setup mode](https://img.youtube.com/vi/Ii_dgGC3IoM/0.jpg)](https://www.youtube.com/watch?v=Ii_dgGC3IoM)
+
 
 ### Solution ###
 This code makes a dog barking sound whenever a cat comes into the view of the pi camera, thus scaring the cat away.
+
+[![Demonstration of the project](https://img.youtube.com/vi/4e4OTL9MR1c/0.jpg)](https://www.youtube.com/watch?v=4e4OTL9MR1c)
 
 ### Requirements ###
 * Raspberry Pi Zero W (although it should work on others too).
