@@ -1,6 +1,5 @@
 import io
 import os
-import signal
 import subprocess
 import time
 import boto3

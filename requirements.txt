@@ -1,0 +1,5 @@
+boto3==1.26.12
+numpy==1.23.4
+picamera==1.13
+awscli==1.27.12
+Pillow==8.1.2
