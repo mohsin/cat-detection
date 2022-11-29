@@ -26,7 +26,7 @@ class CaptureHandler:
 
     def play_sound_if_cat(self):
         self.stream = io.BytesIO()
-        with open ('apicount.txt', 'r') as f:
+        with open ('/home/mohsin/cat-detector/apicount.txt', 'r') as f:
             current_count = int(f.read().strip())
             print("Current API count: " + str(current_count))
         self.camera.capture(self.stream, format='jpeg', use_video_port=True)
@@ -38,7 +38,7 @@ class CaptureHandler:
         cat_label = [label for label in response['Labels'] if label.get('Name') == 'Cat'] 
         if (cat_label):
             if (cat_label[0]['Confidence']) > 75.0:
-                proc = subprocess.Popen(['aplay', '-D', 'bluealsa', 'dog.wav'])
+                proc = subprocess.Popen(['aplay', '-D', 'bluealsa', '/home/mohsin/cat-detector/dog.wav'])
                 try:
                     outs, errs = proc.communicate(timeout=30)
                 except subprocess.TimeoutExpired:
@@ -47,7 +47,7 @@ class CaptureHandler:
 
         # Raise the API call count
         current_count += 1
-        with open('apicount.txt', 'w') as f:
+        with open('/home/mohsin/cat-detector/apicount.txt', 'w') as f:
             f.write(str(current_count) + "\n")
 
     def tick(self):
@@ -57,7 +57,7 @@ class CaptureHandler:
             self.detected = False
             print('Recording started')
 
-            path = "captures/%s/" % datetime.datetime.now().date()
+            path = "/home/mohsin/cat-detector/captures/%s/" % datetime.datetime.now().date()
 
             os.makedirs(path, exist_ok = True)
 
