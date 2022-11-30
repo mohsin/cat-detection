@@ -3,3 +3,4 @@ numpy==1.23.4
 picamera==1.13
 awscli==1.27.12
 Pillow==8.1.2
+opencv-python>=4.6.0.66
