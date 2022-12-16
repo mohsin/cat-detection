@@ -15,11 +15,15 @@ I have added a setup mode for convience so you can setup and align the camera to
 ```zsh
 python main.py --setup
 ```
+**Click to see introduction on youtube:**
+
 [![Demonstration of the project setup mode](https://img.youtube.com/vi/Ii_dgGC3IoM/0.jpg)](https://www.youtube.com/watch?v=Ii_dgGC3IoM)
 
 
 ### Solution ###
 This code makes a dog barking sound whenever a cat comes into the view of the pi camera, thus scaring the cat away.
+
+**Click to see demonstration on youtube:**
 
 [![Demonstration of the project](https://img.youtube.com/vi/4e4OTL9MR1c/0.jpg)](https://www.youtube.com/watch?v=4e4OTL9MR1c)
 
